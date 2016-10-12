@@ -3,6 +3,52 @@
 simple Python script for generating an analogue clock timer template given two circle diameters and the number of hours on the dial
 
 
+## What it does
+
+It simplifies the creation of geometrically accurate timer designs by providing you with a template that marks all relevant positions. To generate the template, you have to provide the circle diameters of day and hour circles as well as the number of hours on the dial---probably 12 or 24. If you then execute the script, you will get something like this:
+
+![example window](window.png "example window")
+
+
+### Key Features
+
+* *Freely customizable design*  
+The template can be tailored to your exact needs. Merely set the diameters for the day and hour circles as well as the number of overall hour circles on the dial.
+
+* *Additional half-hour markings*  
+Drawing a 24 hour timer will result in a total of 48 markings (24 for each hour and another 24 for each half-hour) providing you with additional positional information.
+
+* *Vector output*  
+The output is automatically saved to a vector file format, currently a postscript document.
+
+* *High precision*  
+In order to position elements with high accuracy, a large integer scaling factor can be chosen to create a larger image with higher resolution.
+
+
+## Getting started
+
+Install the necessary modules and run the script:
+
+    # sudo apt-get install python-tk python-sympy
+
+    $ ./timer_template.py
+
+It requires Python v2.7 or later.
+
+In order to modify the default settings, open the script and change the variable values listed in the section called *settings*.
+
+
+## Contributing
+
+This script currently provides minimal functionality and is suitable for production use. Have a look at the [open issues][issues] for ideas on how to contribute. Furthermore, if you have a neat idea for a new feature or some other improvement, I am looking forward to recieving a pull request from you:
+
+1. [Fork it][fork]
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit all your changes: `git commit -am 'add some feature'`
+4. Push to your feature branch: `git push origin my-new-feature`
+5. Submit a [pull request][pr]
+
+
 ## License
 
 **GNU General Public License v3.0**
@@ -18,5 +64,8 @@ You can get the newest version from the [project's website][project-website].
 
 
 
+[issues]: https://github.com/makomi/timer_template/issues
+[fork]: https://help.github.com/articles/fork-a-repo/
+[pr]: https://help.github.com/articles/creating-a-pull-request/
 [license-file]: LICENSE
 [project-website]: http://github.com/makomi/timer_template/
