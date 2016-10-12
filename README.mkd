@@ -1,0 +1,22 @@
+# analogue timer template
+
+simple Python script for generating an analogue clock timer template given two circle diameters and the number of hours on the dial
+
+
+## License
+
+**GNU General Public License v3.0**
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 3, as published by the Free Software Foundation.
+
+See [LICENSE][license-file] for details.
+
+
+## Source
+
+You can get the newest version from the [project's website][project-website].
+
+
+
+[license-file]: LICENSE
+[project-website]: http://github.com/makomi/timer_template/
