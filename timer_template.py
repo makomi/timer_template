@@ -29,15 +29,33 @@ UPDATES    : https://github.com/makomi/timer_template
 
 
 # ------------------------------------------------------------------------------
+# modules
 import Tkinter as tk
+from sympy import *
+from math import *
 
 # ------------------------------------------------------------------------------
-imgWidth = 400
-imgHeight = 400
-
-d1 = 200               # diameter of day circle
+# settings
+d1 = 400       # diameter of day  circle [px]
+d2 = 20        # diameter of hour circles [px]
+n2 = 24        # number   of hour circles
+padding = 1
 
 # ------------------------------------------------------------------------------
+# geometry
+r1 = d1/2
+r2 = d2/2
+
+# image
+imgHeight = imgWidth = 2*(r1+r2) + 2*padding
+imgCenterX = imgWidth/2
+imgCenterY = imgHeight/2
+
+# hour circle angles
+angle = range(0, 360, 360/n2)
+
+# ------------------------------------------------------------------------------
+# canvas
 root = tk.Tk()
 canvas = tk.Canvas(root, width=imgWidth, height=imgHeight, borderwidth=0, highlightthickness=0, bg="white")
 canvas.grid()
@@ -50,14 +68,21 @@ def _create_circle(self, x, y, r, **kwargs):
 tk.Canvas.create_circle = _create_circle
 
 # ------------------------------------------------------------------------------
-imgCenterX = imgWidth/2
-imgCenterY = imgHeight/2
+# day circle
+canvas.create_circle(imgCenterX, imgCenterY, r1, outline="black", width=1)
+canvas.create_circle(imgCenterX, imgCenterY,  0, outline="black", width=1)
+
+# hour circles
+for i in range(len(angle)):
+    x = int(imgCenterX + r1*cos(radians(angle[i])))
+    y = int(imgCenterY + r1*sin(radians(angle[i])))
+    canvas.create_circle(x, y, r2, outline="black", width=1)
+
+# half-hour lines
+#canvas.create_line(x-r2, y, x+r2, y, width=1)
 
 # ------------------------------------------------------------------------------
-canvas.create_circle(imgCenterX, imgCenterY, d1, outline="black", width=1)
-canvas.create_text(imgCenterX, imgCenterY, text='.')
-
-# ------------------------------------------------------------------------------
+# window
 root.wm_title("timer template")
 root.mainloop()
 
