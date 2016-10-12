@@ -36,23 +36,33 @@ from math import *
 
 # ------------------------------------------------------------------------------
 # settings
-d1 = 400       # diameter of day  circle [px]
-d2 = 20        # diameter of hour circles [px]
-n2 = 24        # number   of hour circles
-padding = 1
+d1 = 210         # diameter of main circle  [px]
+d2 = 10          # diameter of hour circles [px]
+n2 = 24          # number   of hour circles
+imgScaling = 2   # use a large integer scaling factor, to position elements with high accuracy
+imgPadding = 1   # additional image border padding [px]
 
 # ------------------------------------------------------------------------------
 # geometry
+d1 *= imgScaling
+d2 *= imgScaling
 r1 = d1/2
 r2 = d2/2
+angleFullCircle = 2*pi
 
 # image
-imgHeight = imgWidth = 2*(r1+r2) + 2*padding
+imgHeight = imgWidth = 2*(r1+r2) + 2*imgPadding
 imgCenterX = imgWidth/2
 imgCenterY = imgHeight/2
 
 # hour circle angles
-angle = range(0, 360, 360/n2)
+angleCirclesSector = angleFullCircle/n2
+angleCircles = []
+for i in range(n2):
+    angleCircles.append(i*angleCirclesSector)
+
+# half-hour line angle offset
+angleLinesOffset = (angleCircles[0]+angleCircles[1])/2
 
 # ------------------------------------------------------------------------------
 # canvas
@@ -70,16 +80,29 @@ tk.Canvas.create_circle = _create_circle
 # ------------------------------------------------------------------------------
 # day circle
 canvas.create_circle(imgCenterX, imgCenterY, r1, outline="black", width=1)
-canvas.create_circle(imgCenterX, imgCenterY,  0, outline="black", width=1)
+canvas.create_circle(imgCenterX, imgCenterY,  1, outline="black", width=1)
 
 # hour circles
-for i in range(len(angle)):
-    x = int(imgCenterX + r1*cos(radians(angle[i])))
-    y = int(imgCenterY + r1*sin(radians(angle[i])))
+for i in range(len(angleCircles)):
+    x = int(imgCenterX + r1*cos(angleCircles[i]))
+    y = int(imgCenterY + r1*sin(angleCircles[i]))
     canvas.create_circle(x, y, r2, outline="black", width=1)
 
+# hour lines
+for i in range(len(angleCircles)):
+    x1 = int(imgCenterX + (r1-r2)*cos(angleCircles[i]))
+    y1 = int(imgCenterY + (r1-r2)*sin(angleCircles[i]))
+    x2 = int(imgCenterX + (r1+r2)*cos(angleCircles[i]))
+    y2 = int(imgCenterY + (r1+r2)*sin(angleCircles[i]))
+    canvas.create_line(x1, y1, x2, y2, width=1)
+
 # half-hour lines
-#canvas.create_line(x-r2, y, x+r2, y, width=1)
+for i in range(len(angleCircles)):
+    x1 = int(imgCenterX + (r1-r2)*cos(angleCircles[i]+angleLinesOffset))
+    y1 = int(imgCenterY + (r1-r2)*sin(angleCircles[i]+angleLinesOffset))
+    x2 = int(imgCenterX + (r1+r2)*cos(angleCircles[i]+angleLinesOffset))
+    y2 = int(imgCenterY + (r1+r2)*sin(angleCircles[i]+angleLinesOffset))
+    canvas.create_line(x1, y1, x2, y2, width=1)
 
 # ------------------------------------------------------------------------------
 # save canvas as postscript document
