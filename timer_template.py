@@ -82,6 +82,11 @@ for i in range(len(angle)):
 #canvas.create_line(x-r2, y, x+r2, y, width=1)
 
 # ------------------------------------------------------------------------------
+# save canvas as postscript document
+canvas.update()
+canvas.postscript(file="timer_template.ps", colormode='color')
+
+# ------------------------------------------------------------------------------
 # window
 root.wm_title("timer template")
 root.mainloop()
