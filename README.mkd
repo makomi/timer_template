@@ -5,9 +5,15 @@ simple Python script for generating an analogue clock timer template given two c
 
 ## What it does
 
-It simplifies the creation of geometrically accurate timer designs by providing you with a template that marks all relevant positions. To generate the template, you have to provide the circle diameters of day and hour circles as well as the number of hours on the dial---probably 12 or 24. If you then execute the script, you will get something like this:
+It simplifies the creation of geometrically accurate timer designs by providing you with a template that marks all relevant positions. To generate the template, you have to provide the circle diameters of day and hour circles as well as the number of hours on the dial---probably 12 or 24.
+
+When executed, the script displays the resulting pixel graphic and saves a derived postscript document in the current working directory.
 
 ![example window](window.png "example window")
+
+**A note on precisely placed elements**  
+In the above image, one can see how a low image resolution can result in poorly placed circles and lines. The lower the image's overall resolution, the less accurate the lines are drawn/ the pixels are placed and the less accurate the objects of the derived postscript document are placed.  
+In order to achieve precisely drawn lines, a large *scaling factor* must be set. It scales the provided circle diameters and thereby the whole image. This allows one to keep the original circle diameters and create a larger image with higher resolution and therefore more precisely placed elements.
 
 
 ### Key Features
