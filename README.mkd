@@ -35,8 +35,7 @@ In order to position elements with high accuracy, a large integer scaling factor
 
 Install the necessary modules and run the script:
 
-    # sudo apt-get install python-tk python-sympy
-
+    $ sudo apt-get install python-tk python-sympy
     $ ./timer_template.py
 
 It requires Python v2.7 or later.
